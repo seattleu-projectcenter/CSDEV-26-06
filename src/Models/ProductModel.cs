@@ -24,6 +24,19 @@ namespace ContosoCrafts.WebSite.Models
 
         public ProductTypeEnum ProductType { get; set; } = ProductTypeEnum.Undefined;
 
+        public string Nickname { get; set; }
+
+        public string Height { get; set; }
+
+        public string Weight { get; set; }
+
+        public string Reach { get; set; }
+
+        public string Stance { get; set; }
+
+        [JsonPropertyName("DOB")]
+        public string DateOfBirth { get; set; }
+
         public string Quantity { get; set; }
 
         [Range (-1, 100, ErrorMessage = "Value for {0} must be between {1} and {2}.")]

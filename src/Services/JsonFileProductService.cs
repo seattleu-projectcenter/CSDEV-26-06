@@ -111,6 +111,13 @@ namespace ContosoCrafts.WebSite.Services
             productData.Url = data.Url;
             productData.Image = data.Image;
 
+            productData.Nickname = data.Nickname;
+            productData.Height = data.Height;
+            productData.Weight = data.Weight;
+            productData.Reach = data.Reach;
+            productData.Stance = data.Stance;
+            productData.DateOfBirth = data.DateOfBirth;
+
             productData.Quantity = data.Quantity;
             productData.Price = data.Price;
 
