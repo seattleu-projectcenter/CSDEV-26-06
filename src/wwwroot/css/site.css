@@ -71,11 +71,16 @@ a.navbar-brand {
   font-weight: 700;
   letter-spacing: 0.12rem;
   text-transform: uppercase;
+  padding-left: 80px;
 }
 
 .bg-navbar {
   background: linear-gradient(135deg, rgba(210, 0, 50, 0.95) 0%, rgba(11, 12, 16, 0.95) 100%);
   border-bottom: 2px solid var(--octagon-red);
+  background-image: url(https://upload.wikimedia.org/wikipedia/commons/thumb/9/92/UFC_Logo.svg/1200px-UFC_Logo.svg.png);
+  background-repeat: no-repeat;
+  background-position: left center;
+  background-size: contain;
 }
 
 .bg-footer {
