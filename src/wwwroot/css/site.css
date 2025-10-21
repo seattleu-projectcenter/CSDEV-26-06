@@ -274,4 +274,13 @@ a.navbar-brand {
   .fighter-modal-details {
     flex: 1 1 55%;
   }
+  
+  .navbar .nav-link {
+    color: var(--text-primary) !important;  /* makes the text white */
+  }
+
+  .navbar .nav-link:hover {
+    color: var(--octagon-red) !important;   /* turns red on hover */
+  }
+
 }
