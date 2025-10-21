@@ -1,0 +1,3 @@
+#Robots.txt file for "UFC" by the CS-26-06 Capstone Team
+User-agent: *
+Disallow: /
