@@ -283,4 +283,39 @@ a.navbar-brand {
     color: var(--octagon-red) !important;   /* turns red on hover */
   }
 
+  /* search bar styling */
+  .navbar .form-control {
+    background: rgba(255, 255, 255, 0.10);
+    color: #fff;
+    border: 1px solid rgba(255, 255, 255, 0.25);
+  }
+
+  .navbar .form-control::placeholder {
+    color: rgba(255, 255, 255, 0.70);
+  }
+
+  .navbar .form-control:focus {
+    background: rgba(255, 255, 255, 0.14);
+    color: #fff;
+    box-shadow: none;
+    border-color: var(--octagon-red);
+  }
+
+  .btn-search {
+    background-color: var(--octagon-red);
+    border-color: var(--octagon-red);
+    color: #fff;
+    text-transform: uppercase;
+    font-weight: 600;
+    letter-spacing: 0.03rem;
+  }
+
+  .btn-search:hover,
+  .btn-search:focus {
+    background-color: var(--octagon-red-dark);
+    border-color: var(--octagon-red-dark);
+    color: #fff;
+  }
+
+
 }
