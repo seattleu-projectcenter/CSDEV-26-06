@@ -178,6 +178,13 @@ a.navbar-brand {
   letter-spacing: 0.1rem;
 }
 
+.fighter-card-record {
+  font-size: 0.95rem;
+  color: var(--text-secondary);
+  text-transform: uppercase;
+  letter-spacing: 0.1rem;
+}
+
 .fighter-card-summary {
   color: var(--text-secondary);
   font-size: 0.95rem;
