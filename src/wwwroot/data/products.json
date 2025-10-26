@@ -118,5 +118,25 @@
     "Quantity": null,
     "Price": 0,
     "CommentList": []
+  },
+  {
+    "Id": "ufc-alexandre-pantoja",
+    "Maker": "UFC",
+    "img": "https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/2024-07/PANTOJA_ALEXANDRE_L_BELT_07-27.png?itok=0s1Ozz2t",
+    "Url": "https://www.ufc.com/athlete/alexandre-pantoja",
+    "Title": "Alexandre Pantoja",
+    "Record": "30-5-0",
+    "Description": "Flyweight champion known for his relentless pace, slick grappling, and fearless exchanges.",
+    "Nickname": "The Cannibal",
+    "Height": "5'5\"",
+    "Weight": "125 lbs",
+    "Reach": "67.5 in",
+    "Stance": "Orthodox",
+    "DOB": "April 16, 1990",
+    "Ratings": null,
+    "ProductType": 0,
+    "Quantity": null,
+    "Price": 0,
+    "CommentList": []
   }
 ]
