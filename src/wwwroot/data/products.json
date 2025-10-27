@@ -158,5 +158,27 @@
   "Quantity": null,
   "Price": 0,
   "CommentList": []
- }
+ },
+ {
+  "Id": "ufc-kimbo-slice",
+  "Maker": "UFC",
+  "img": "https://officialpsds.com/imageview/rl/19/rl193x_large.png?1521316466",
+  "Url": "https://www.ufc.com/athlete/kimbo-slice",
+  "Title": "Kevin Ferguson",
+  "Record": "5-2-0 (1 NC)",
+  "Description": "Street-fighting legend turned MMA sensation, known for raw power, charisma, and explosive knockouts.",
+  "Nickname": "Kimbo Slice",
+  "Height": "6'2\"",
+  "Weight": "225 lbs",
+  "Reach": "77 in",
+  "Stance": "Orthodox",
+  "DOB": "February 8, 1974 – June 6, 2016",
+  "Ratings": null,
+  "ProductType": 0,
+  "Quantity": null,
+  "Price": 0,
+  "CommentList": []
+}
+
 ]
+
