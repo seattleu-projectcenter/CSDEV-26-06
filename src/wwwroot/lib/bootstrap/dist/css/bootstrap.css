@@ -4179,6 +4179,13 @@ input[type="button"].btn-block {
   white-space: nowrap;
 }
 
+.navbar-logo {
+  height: 40px; 
+  width: auto;          
+  object-fit: contain;  
+  display: block;       
+}
+
 .navbar-brand:hover, .navbar-brand:focus {
   text-decoration: none;
 }
