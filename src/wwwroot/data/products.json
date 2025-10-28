@@ -187,7 +187,28 @@
   "Quantity": null,
   "Price": 0,
   "CommentList": []
-}
+  },
+  {
+    "Id": "ufc-khabib-nurmagomedov",
+    "Maker": "UFC",
+    "img": "https://mma-compass.com/static/images/profilepictures/fullbody/032cc3922d871c7f.png",  
+    "Url": "https://www.ufc.com/athlete/khabib-nurmagomedov",
+    "Title": "Khabib Nurmagomedov",
+    "Record": "29-0-0",
+    "Description": "Undefeated lightweight champion renowned for dominant grappling and relentless pressure.",
+    "Nickname": "The Eagle",
+    "Height": "5'10\"",
+    "Weight": "155 lbs",
+    "Reach": "70 in",
+    "Stance": "Orthodox",
+    "DOB": "September 20, 1988",
+    "Status": "Retired",
+    "Ratings": null,
+    "ProductType": 0,
+    "Quantity": null,
+    "Price": 0,
+    "CommentList": []
+  }
 
 ]
 
