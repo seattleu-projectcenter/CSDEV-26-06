@@ -41,6 +41,7 @@ namespace ContosoCrafts.WebSite.Models
         
         public string Status { get; set; }
 
+        public string Hometown { get; set; } 
 
         public string Quantity { get; set; }
 
