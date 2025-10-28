@@ -248,6 +248,28 @@
     "Price": 0,
     "CriminalHistory": true,
     "CommentList": []
-  }
-    
+  },
+  {
+  "Id": "ufc-merab-dvalishvili",
+  "Maker": "UFC",
+  "img": "https://ufc.com/images/styles/athlete_bio_full_body/s3/2025-10/DVALISHVILI_MERAB_L_BELT_10-04.png?itok=28czGqaG", 
+  "Url": "https://www.espn.com/mma/fighter/_/id/3948572/merab-dvalishvili",
+  "Title": "Merab Dvalishvili",
+  "Record": "21-4-0",
+  "Description": "Relentless, pressure fighter, characterized by exceptional cardio and forward movement.",
+  "Nickname": "The Machine",
+  "Height": "5'6\"",
+  "Weight": "135 lbs",
+  "Reach": "68 in",
+  "Stance": "Orthodox",
+  "DOB": "January 10th, 1991",
+  "Status": "Active",
+  "Ratings": null,
+  "ProductType": 0,
+  "Quantity": null,
+  "Price": 0,
+  "CriminalHistory": false,
+  "CommentList": []
+}
+  
 ]
