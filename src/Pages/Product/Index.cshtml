@@ -1,25 +1,74 @@
-﻿@page
+﻿@page "{id?}"
 @model ContosoCrafts.WebSite.Pages.Product.IndexModel
+@using ContosoCrafts.WebSite.Models
+@inject ContosoCrafts.WebSite.Services.JsonFileProductService ProductService
 @{
     ViewData["Title"] = "Index page";
+
+    var id = (string)RouteData.Values["id"];
+    var products = ProductService.GetAllData();
+    ProductModel selected = !string.IsNullOrWhiteSpace(id)
+        ? products.FirstOrDefault(p => p.Id == id)
+        : null;
 }
 
 <div class="container">
-    <table class="table table-bordered table-striped">
-        <thead>
-            <tr>
-                <th>Title</th>
-                <th>Action</th>
-            </tr>
-        </thead>
-        <tbody>
-            @foreach (var product in Model.Products)
-            {
+    @if (selected == null)
+    {
+        <table class="table table-bordered table-striped">
+            <thead>
                 <tr>
-                    <td>@product.Title</td>
-                    @*<td><a asp-page="Read" asp-route-id="@product.Id">Read</a></td>*@
+                    <th>Title</th>
+                    <th>Action</th>
                 </tr>
-            }
-        </tbody>
-    </table>
+            </thead>
+            <tbody>
+                @foreach (var product in products)
+                {
+                    <tr>
+                        <td>@product.Title</td>
+                        <td>
+                            <a asp-page="./Index" asp-route-id="@product.Id">Read</a>
+                        </td>
+                    </tr>
+                }
+            </tbody>
+        </table>
+    }
+    else
+    {
+        <a asp-page="./Index" asp-route-id="" class="btn btn-outline-secondary mb-3">← Back to Rankings</a>
+
+        <div class="row">
+            <div class="col-md-4">
+                <img src="@selected.Image" alt="@selected.Title" class="img-fluid rounded" />
+            </div>
+            <div class="col-md-8">
+                <h2>
+                    @selected.Title
+                    @if (!string.IsNullOrWhiteSpace(selected.Nickname))
+                    {
+                        <small class="text-muted">(@selected.Nickname)</small>
+                    }
+                </h2>
+                <p>@selected.Description</p>
+
+                <ul class="list-unstyled">
+                    <li><strong>Record:</strong> @selected.Record</li>
+                    <li><strong>Status:</strong> @selected.Status</li>
+                    <li><strong>Hometown:</strong> @selected.Hometown</li>
+                    <li><strong>Height:</strong> @selected.Height</li>
+                    <li><strong>Weight:</strong> @selected.Weight</li>
+                    <li><strong>Reach:</strong> @selected.Reach</li>
+                    <li><strong>Stance:</strong> @selected.Stance</li>
+                    <li><strong>DOB:</strong> @selected.DateOfBirth</li>
+                </ul>
+
+                @if (!string.IsNullOrWhiteSpace(selected.Url))
+                {
+                    <a class="btn btn-primary" href="@selected.Url" target="_blank" rel="noopener">Official Profile</a>
+                }
+            </div>
+        </div>
+    }
 </div>
