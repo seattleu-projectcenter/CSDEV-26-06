@@ -38,6 +38,9 @@ namespace ContosoCrafts.WebSite.Models
 
         [JsonPropertyName("DOB")]
         public string DateOfBirth { get; set; }
+        
+        public string Status { get; set; }
+
 
         public string Quantity { get; set; }
 
