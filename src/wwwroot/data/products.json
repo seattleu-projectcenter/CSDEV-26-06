@@ -17,6 +17,7 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
+    "CriminalHistory": true,
     "CommentList": []
   },
   {
@@ -37,6 +38,7 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
+    "CriminalHistory": false,
     "CommentList": []
   },
   {
@@ -57,6 +59,7 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
+    "CriminalHistory": false,
     "CommentList": []
   },
   {
@@ -77,6 +80,7 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
+    "CriminalHistory": true,
     "CommentList": []
   },
   {
@@ -97,6 +101,7 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
+    "CriminalHistory": false,
     "CommentList": []
   },
   {
@@ -117,6 +122,7 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
+    "CriminalHistory": false,
     "CommentList": []
   },
   {
@@ -137,48 +143,49 @@
     "ProductType": 0,
     "Quantity": null,
     "Price": 0,
+    "CriminalHistory": false,
     "CommentList": []
   },
   {
-  "Id": "ufc-alex-pereira",
-  "Maker": "UFC",
-  "img": "https://preview.redd.it/is-alex-pereiras-time-as-champion-over-v0-4n9yb3c0vvre1.png?width=460&format=png&auto=webp&s=065c740b6af9b80408b46abd44a56e7e6893dc7f",
-  "Url": "https://www.ufc.com/athlete/alex-pereira",
-  "Title": "Alex Pereira",
-  "Record": "13-3-0",
-  "Description": "Two-division champion with elite kickboxing roots, devastating power, and ice-cold composure.",
-  "Nickname": "Poatan",
-  "Height": "6'4\"",
-  "Weight": "205 lbs",
-  "Reach": "79 in",
-  "Stance": "Orthodox",
-  "DOB": "July 7, 1987",
-  "Ratings": null,
-  "ProductType": 0,
-  "Quantity": null,
-  "Price": 0,
-  "CommentList": []
- },
- {
-  "Id": "ufc-kimbo-slice",
-  "Maker": "UFC",
-  "img": "https://officialpsds.com/imageview/rl/19/rl193x_large.png?1521316466",
-  "Url": "https://www.ufc.com/athlete/kimbo-slice",
-  "Title": "Kevin Ferguson",
-  "Record": "5-2-0 (1 NC)",
-  "Description": "Street-fighting legend turned MMA sensation, known for raw power, charisma, and explosive knockouts.",
-  "Nickname": "Kimbo Slice",
-  "Height": "6'2\"",
-  "Weight": "225 lbs",
-  "Reach": "77 in",
-  "Stance": "Orthodox",
-  "DOB": "February 8, 1974 – June 6, 2016",
-  "Ratings": null,
-  "ProductType": 0,
-  "Quantity": null,
-  "Price": 0,
-  "CommentList": []
-}
-
+    "Id": "ufc-alex-pereira",
+    "Maker": "UFC",
+    "img": "https://preview.redd.it/is-alex-pereiras-time-as-champion-over-v0-4n9yb3c0vvre1.png?width=460&format=png&auto=webp&s=065c740b6af9b80408b46abd44a56e7e6893dc7f",
+    "Url": "https://www.ufc.com/athlete/alex-pereira",
+    "Title": "Alex Pereira",
+    "Record": "13-3-0",
+    "Description": "Two-division champion with elite kickboxing roots, devastating power, and ice-cold composure.",
+    "Nickname": "Poatan",
+    "Height": "6'4\"",
+    "Weight": "205 lbs",
+    "Reach": "79 in",
+    "Stance": "Orthodox",
+    "DOB": "July 7, 1987",
+    "Ratings": null,
+    "ProductType": 0,
+    "Quantity": null,
+    "Price": 0,
+    "CriminalHistory": false,
+    "CommentList": []
+  },
+  {
+    "Id": "ufc-kimbo-slice",
+    "Maker": "UFC",
+    "img": "https://officialpsds.com/imageview/rl/19/rl193x_large.png?1521316466",
+    "Url": "https://www.ufc.com/athlete/kimbo-slice",
+    "Title": "Kevin Ferguson",
+    "Record": "5-2-0 (1 NC)",
+    "Description": "Street-fighting legend turned MMA sensation, known for raw power, charisma, and explosive knockouts.",
+    "Nickname": "Kimbo Slice",
+    "Height": "6'2\"",
+    "Weight": "225 lbs",
+    "Reach": "77 in",
+    "Stance": "Orthodox",
+    "DOB": "February 8, 1974 – June 6, 2016",
+    "Ratings": null,
+    "ProductType": 0,
+    "Quantity": null,
+    "Price": 0,
+    "CriminalHistory": true,
+    "CommentList": []
+  }
 ]
-
