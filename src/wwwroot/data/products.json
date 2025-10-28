@@ -270,6 +270,27 @@
   "Price": 0,
   "CriminalHistory": false,
   "CommentList": []
+},
+{
+  "Id": "ufc-demetrious-johnson",
+  "Maker": "UFC",
+  "img": "https://cdn.onefc.com/wp-content/uploads/2019/01/Demetrious_Johnson-hero-1200x1165-Champion-600x583.jpg",
+  "Url": "https://www.espn.com/mma/fighter/_/id/2512089/demetrious-johnson",
+  "Title": "Demetrious Johnson",
+  "Record": "25-4-1",
+  "Description": "Commonly regarded as the greatest mixed martial artists of all time, known for speed, technique, and fight IQ.",
+  "Nickname": "Mighty Mouse",
+  "Height": "5'3\"",
+  "Weight": "125 lbs",
+  "Reach": "66 in",
+  "Stance": "Orthodox",
+  "DOB": "August 13th, 1986",
+  "Status": "Retired",
+  "Ratings": null,
+  "ProductType": 0,
+  "Quantity": null,
+  "Price": 0,
+  "CriminalHistory": false,
+  "CommentList": []
 }
-  
 ]
