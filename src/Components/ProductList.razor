@@ -9,6 +9,7 @@
         <div class="card fighter-card" data-toggle="modal" data-target="#productModal" @onclick="(e => SelectProduct(product.Id))">
             <div class="card-img" style="background-image: url('@product.Image');">
                 <div class="fighter-card-overlay">
+                    <span class="fighter-card-status">@product.Status</span>
                     <span class="fighter-card-name">@product.Title</span>
                     <span class="fighter-card-nickname">@product.Nickname</span>
                     <span class="fighter-card-record">@product.Record</span>
@@ -45,6 +46,10 @@
                                 <div class="fighter-stat">
                                     <span class="fighter-stat-label">Record</span>
                                     <span class="fighter-stat-value">@selectedProduct.Record</span>
+                                </div>
+                                <div class="fighter-stat">
+                                    <span class="fighter-stat-label">Status</span>
+                                    <span class="fighter-stat-value">@selectedProduct.Status</span>
                                 </div>
                                 <div class="fighter-stat">
                                     <span class="fighter-stat-label">Height</span>
