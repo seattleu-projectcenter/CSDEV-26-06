@@ -208,6 +208,27 @@
     "Quantity": null,
     "Price": 0,
     "CommentList": []
+  },
+    {
+    "Id": "ufc-tom-aspinall",
+    "Maker": "UFC",
+    "img": "https://i.namu.wiki/i/ilxD2W1XIML9QwvIDpRJV0-duFdey-bFHhTW7IRFBwcTZokrM3oheQfU5NvVwOLBZ8RInXd1FTw-C8J3Z1a6Yw.webp",  
+    "Url": "https://www.ufc.com/athlete/tom-aspinall",
+    "Title": "Tom Aspinall",
+    "Record": "15-3-0",
+    "Description": "Heavyweight contender with explosive finishing ability and rapid finishes.",
+    "Nickname": "",
+    "Height": "6'5\"",
+    "Weight": "255 lbs",
+    "Reach": "78 in",
+    "Stance": "Orthodox",
+    "DOB": "April 11, 1993",
+    "Status": "Active",
+    "Ratings": null,
+    "ProductType": 0,
+    "Quantity": null,
+    "Price": 0,
+    "CommentList": []
   }
 
 ]
