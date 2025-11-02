@@ -337,12 +337,20 @@ a.navbar-brand {
 .event-info br+*{opacity:.95}
 @media (max-width:640px){.events-title{font-size:1.6rem}.simple-event{padding:16px 18px}.matchup{font-size:1.1rem}}
 
+.roster-action-buttons {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.75rem;
+  margin-top: 1.25rem;
+}
+
 /* Add Fighter button */
 #add-fighter-button {
   display: inline-flex;
   align-items: center;
   gap: 0.6rem;
-  margin-top: 1.25rem;
+  margin: 0;
   padding: 0.6rem 1rem;
   border-radius: 999px;
   background: transparent;
@@ -377,6 +385,45 @@ a.navbar-brand {
   width: 20px;
   height: 20px;
   /* inherits currentColor, so it flips to white on hover */
+}
+
+#update-fighter-button {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin: 0;
+  padding: 0.6rem 1rem;
+  border-radius: 999px;
+  background-color: var(--octagon-red);
+  color: #fff;
+  border: 2px solid var(--octagon-red);
+  font-weight: 700;
+  letter-spacing: 0.05rem;
+  text-transform: uppercase;
+  transition: transform 0.15s ease, box-shadow 0.2s ease, background-color 0.2s ease, color 0.2s ease, border-color 0.2s ease;
+}
+
+#update-fighter-button:hover,
+#update-fighter-button:focus {
+  background-color: var(--octagon-red-dark);
+  border-color: var(--octagon-red-dark);
+  box-shadow: 0 8px 20px rgba(210, 0, 50, 0.35);
+  transform: translateY(-1px);
+}
+
+#update-fighter-button:active {
+  transform: translateY(0);
+  box-shadow: 0 4px 12px rgba(210, 0, 50, 0.25);
+}
+
+#update-fighter-button span {
+  margin: 0;
+  line-height: 1;
+}
+
+#update-fighter-button svg {
+  width: 20px;
+  height: 20px;
 }
 
 }
