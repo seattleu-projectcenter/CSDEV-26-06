@@ -28,7 +28,8 @@
                     <tr>
                         <td>@product.Title</td>
                         <td>
-                            <a asp-page="./Index" asp-route-id="@product.Id">Read</a>
+                            <a class="text-danger" asp-page="./Index" asp-route-id="@product.Id">Read</a>
+                            <a class="text-danger ml-3" asp-page="./Update" asp-route-id="@product.Id">Update</a>
                         </td>
                     </tr>
                 }
@@ -77,12 +78,6 @@
                 <path d="M12 5v14M5 12h14" stroke="currentColor" stroke-width="2" stroke-linecap="round"/>
             </svg>
             <span>New Fighter</span>
-        </button>
-        <button id="update-fighter-button" class="btn-update-fighter" type="button" aria-label="Update fighter rating">
-            <svg viewBox="0 0 24 24" aria-hidden="true" focusable="false">
-                <path d="M4 17.25V20h2.75L17.81 8.94l-2.75-2.75L4 17.25zm15.71-8.04a1.003 1.003 0 0 0 0-1.42l-2.5-2.5a1.003 1.003 0 0 0-1.42 0l-1.83 1.83 2.75 2.75 1.99-1.99z" fill="currentColor"/>
-            </svg>
-            <span>Update Fighter</span>
         </button>
     </div>
 </div>

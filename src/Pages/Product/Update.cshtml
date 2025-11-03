@@ -1,0 +1,112 @@
+@page "{id}"
+@model ContosoCrafts.WebSite.Pages.Product.UpdateModel
+
+@{
+    ViewData["Title"] = "Update Fighter";
+}
+
+<h1 class="mb-4">Update Fighter</h1>
+
+@if (Model.Product == null)
+{
+    <div class="alert alert-warning" role="alert">
+        The requested fighter could not be found.
+    </div>
+}
+else
+{
+    <form method="post" class="fighter-update-form">
+        <div asp-validation-summary="ModelOnly" class="text-danger"></div>
+        <input type="hidden" asp-for="Product.Id" />
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="Product.Title"></label>
+                <input asp-for="Product.Title" class="form-control" />
+                <span asp-validation-for="Product.Title" class="text-danger"></span>
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Product.Nickname"></label>
+                <input asp-for="Product.Nickname" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label asp-for="Product.Record"></label>
+                <input asp-for="Product.Record" class="form-control" />
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="Product.Status"></label>
+                <input asp-for="Product.Status" class="form-control" />
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="Product.Hometown"></label>
+                <input asp-for="Product.Hometown" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-4">
+                <label asp-for="Product.Height"></label>
+                <input asp-for="Product.Height" class="form-control" />
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="Product.Weight"></label>
+                <input asp-for="Product.Weight" class="form-control" />
+            </div>
+            <div class="form-group col-md-4">
+                <label asp-for="Product.Reach"></label>
+                <input asp-for="Product.Reach" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="Product.Stance"></label>
+                <input asp-for="Product.Stance" class="form-control" />
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Product.DateOfBirth"></label>
+                <input asp-for="Product.DateOfBirth" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-group">
+            <label asp-for="Product.Description"></label>
+            <textarea asp-for="Product.Description" class="form-control" rows="5"></textarea>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="Product.Url"></label>
+                <input asp-for="Product.Url" class="form-control" />
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Product.Image"></label>
+                <input asp-for="Product.Image" class="form-control" />
+            </div>
+        </div>
+
+        <div class="form-row">
+            <div class="form-group col-md-6">
+                <label asp-for="Product.Quantity"></label>
+                <input asp-for="Product.Quantity" class="form-control" />
+            </div>
+            <div class="form-group col-md-6">
+                <label asp-for="Product.Price"></label>
+                <input asp-for="Product.Price" class="form-control" />
+                <span asp-validation-for="Product.Price" class="text-danger"></span>
+            </div>
+        </div>
+
+        <div class="d-flex justify-content-between">
+            <a asp-page="./Index" asp-route-id="@Model.Product.Id" class="btn btn-secondary">Cancel</a>
+            <button type="submit" class="btn btn-primary">Save Changes</button>
+        </div>
+    </form>
+}
+
+@section Scripts {
+    <partial name="_ValidationScriptsPartial" />
+}
