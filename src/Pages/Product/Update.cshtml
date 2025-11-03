@@ -88,18 +88,6 @@ else
             </div>
         </div>
 
-        <div class="form-row">
-            <div class="form-group col-md-6">
-                <label asp-for="Product.Quantity"></label>
-                <input asp-for="Product.Quantity" class="form-control" />
-            </div>
-            <div class="form-group col-md-6">
-                <label asp-for="Product.Price"></label>
-                <input asp-for="Product.Price" class="form-control" />
-                <span asp-validation-for="Product.Price" class="text-danger"></span>
-            </div>
-        </div>
-
         <div class="d-flex justify-content-between">
             <a asp-page="./Index" asp-route-id="@Model.Product.Id" class="btn btn-secondary">Cancel</a>
             <button type="submit" class="btn btn-primary">Save Changes</button>
