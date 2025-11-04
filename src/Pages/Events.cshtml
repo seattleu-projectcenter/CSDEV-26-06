@@ -4,24 +4,141 @@
     ViewData["Title"] = "Events";
 }
 
-<h1 class="events-title">@ViewData["Title"]</h1>
 
-<div class="simple-events-list">
-    <div class="simple-event">
-        <h2 class="matchup">DE RIDDER VS ALLEN</h2>
-        <p class="event-info">
-            <strong>Sat, Oct 18</strong> / 4:00 PM PDT / <em>Main Card</em><br />
-            Rogers Arena<br />
-            Vancouver, BC Canada
-        </p>
+    
+<div class="container" style="max-width:900px;margin:40px auto;color:#fff;">
+    <h1 style="text-align:center;font-weight:700;letter-spacing:.05em;margin-bottom:18px;">
+        @ViewData["Title"]
+    </h1>
+
+    <div style="display:flex;justify-content:flex-end;margin-bottom:10px;">
+        <button type="button"
+                onclick="toggleAdd()"
+                style="background:#ea3546;border:0;color:#fff;font-weight:700;padding:8px 14px;border-radius:6px;cursor:pointer">
+            Add Event
+        </button>
     </div>
 
-    <div class="simple-event">
-        <h2 class="matchup">OLIVEIRA VS GAMROT</h2>
-        <p class="event-info">
-            <strong>Sat, Oct 11</strong> / 4:00 PM PDT / <em>Main Card</em><br />
-            Farmasi Arena<br />
-            Rio de Janeiro, Brazil
-        </p>
+    <div id="cards" style="display:flex;flex-direction:column;gap:14px;">
+        @foreach (var e in Model.Events)
+        {
+            <div class="event-card" style="background:#171a1f;border:1px solid #262a31;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,.25);">
+                <div style="display:flex;justify-content:space-between;align-items:flex-start;padding:14px 18px;">
+                    <div>
+                        <div style="font-weight:800;text-transform:uppercase;">@e.Matchup</div>
+                        <div style="font-size:.86rem;color:#c9cbd1;margin-top:4px;">
+                            @e.LocalStartDisplay / <em>@e.Card</em><br />
+                            @e.Venue<br />
+                            @e.Location
+                        </div>
+                    </div>
+
+                    <button type="button"
+                            class="edit-btn"
+                            style="background:#ea3546;border:0;color:#fff;font-weight:700;padding:6px 10px;border-radius:6px;cursor:pointer"
+                            onclick="toggleEdit('@e.Id')">
+                        Update
+                    </button>
+                </div>
+
+                <div id="edit-@e.Id" style="display:none;border-top:1px solid #262a31;padding:14px 18px;">
+                    <form method="post" asp-page-handler="Update" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                        <input type="hidden" name="id" value="@e.Id" />
+                        <label style="display:flex;flex-direction:column;font-size:.85rem">
+                            Matchup
+                            <input name="matchup" value="@e.Matchup" required style="padding:8px;border-radius:6px;border:1px solid #2e323a;color:#000" />
+                        </label>
+                        <label style="display:flex;flex-direction:column;font-size:.85rem">
+                            Start (UTC)
+                            <input name="startUtc" value="@e.StartUtc" required style="padding:8px;border-radius:6px;border:1px solid #2e323a;color:#000" />
+                        </label>
+                        <label style="display:flex;flex-direction:column;font-size:.85rem">
+                            Card
+                            <input name="card" value="@e.Card" style="padding:8px;border-radius:6px;border:1px solid #2e323a;color:#000" />
+                        </label>
+                        <label style="display:flex;flex-direction:column;font-size:.85rem">
+                            Venue
+                            <input name="venue" value="@e.Venue" style="padding:8px;border-radius:6px;border:1px solid #2e323a;color:#000" />
+                        </label>
+                        <label style="grid-column:1 / -1;display:flex;flex-direction:column;font-size:.85rem">
+                            Location
+                            <input name="location" value="@e.Location" style="padding:8px;border-radius:6px;border:1px solid #2e323a;color:#000" />
+                        </label>
+
+                        <div style="grid-column:1 / -1;display:flex;gap:8px;justify-content:flex-end;margin-top:6px;">
+                            <button type="button"
+                                    onclick="toggleEdit('@e.Id')"
+                                    style="background:#30343a;border:0;color:#e3e4e8;padding:8px 12px;border-radius:6px;cursor:pointer">
+                                Cancel
+                            </button>
+                            <button type="submit"
+                                    style="background:#ea3546;border:0;color:#fff;font-weight:700;padding:8px 14px;border-radius:6px;cursor:pointer">
+                                Save
+                            </button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        }
+    </div>
+
+    <div id="add-card" style="display:none;margin-top:22px;background:#171a1f;border:1px solid #262a31;border-radius:10px;box-shadow:0 4px 10px rgba(0,0,0,.25);">
+        <div style="padding:14px 18px;border-bottom:1px solid #262a31;font-weight:700;color:#ea3546;display:flex;justify-content:space-between;align-items:center;">
+            <span>Add New Event</span>
+            <button type="button"
+                    onclick="toggleAdd()"
+                    style="background:#30343a;border:0;color:#e3e4e8;padding:6px 10px;border-radius:6px;cursor:pointer">
+                Close
+            </button>
+        </div>
+        <div style="padding:14px 18px;">
+            <form method="post" asp-page-handler="Add" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                <label style="display:flex;flex-direction:column;font-size:.85rem">
+                    Matchup
+                    <input name="matchup" placeholder="OLIVEIRA VS MAKHACHEV" required style="padding:10px;border-radius:6px;border:1px solid #2e323a;color:#000" />
+                </label>
+                <label style="display:flex;flex-direction:column;font-size:.85rem">
+                    Start (UTC)
+                    <input name="startUtc" placeholder="2025-11-10T23:00:00Z" required style="padding:10px;border-radius:6px;border:1px solid #2e323a;color:#000" />
+                </label>
+                <label style="display:flex;flex-direction:column;font-size:.85rem">
+                    Card
+                    <input name="card" placeholder="Main Card" style="padding:10px;border-radius:6px;border:1px solid #2e323a;color:#000" />
+                </label>
+                <label style="display:flex;flex-direction:column;font-size:.85rem">
+                    Venue
+                    <input name="venue" placeholder="T-Mobile Arena" style="padding:10px;border-radius:6px;border:1px solid #2e323a;color:#000" />
+                </label>
+                <label style="grid-column:1 / -1;display:flex;flex-direction:column;font-size:.85rem">
+                    Location
+                    <input name="location" placeholder="Las Vegas, NV, USA" style="padding:10px;border-radius:6px;border:1px solid #2e323a;color:#000" />
+                </label>
+                <div style="grid-column:1 / -1;display:flex;gap:8px;justify-content:flex-end;">
+                    <button type="button"
+                            onclick="toggleAdd()"
+                            style="background:#30343a;border:0;color:#e3e4e8;padding:10px 16px;border-radius:6px;cursor:pointer">
+                        Cancel
+                    </button>
+                    <button type="submit"
+                            style="background:#ea3546;border:0;color:#fff;font-weight:700;padding:10px 16px;border-radius:6px;cursor:pointer">
+                        Add Event
+                    </button>
+                </div>
+            </form>
+        </div>
     </div>
 </div>
+
+<script>function toggleEdit(id) {
+        const el = document.getElementById('edit-' + id);
+        if (!el) return;
+        el.style.display = (!el.style.display || el.style.display === 'none') ? 'block' : 'none';
+    }
+    function toggleAdd() {
+        const el = document.getElementById('add-card');
+        if (!el) return;
+        el.style.display = (!el.style.display || el.style.display === 'none') ? 'block' : 'none';
+        if (el.style.display === 'block') {
+            el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+        }
+    }</script>
