@@ -4,8 +4,6 @@
     ViewData["Title"] = "Events";
 }
 
-
-    
 <div class="container" style="max-width:900px;margin:40px auto;color:#fff;">
     <h1 style="text-align:center;font-weight:700;letter-spacing:.05em;margin-bottom:18px;">
         @ViewData["Title"]
@@ -33,16 +31,31 @@
                         </div>
                     </div>
 
-                    <button type="button"
-                            class="edit-btn"
-                            style="background:#ea3546;border:0;color:#fff;font-weight:700;padding:6px 10px;border-radius:6px;cursor:pointer"
-                            onclick="toggleEdit('@e.Id')">
-                        Update
-                    </button>
+                    <div style="display:flex;flex-direction:column;gap:6px;">
+                        <button type="button"
+                                class="edit-btn"
+                                style="background:#ea3546;border:0;color:#fff;font-weight:700;padding:6px 10px;border-radius:6px;cursor:pointer"
+                                onclick="toggleEdit('@e.Id')">
+                            Update
+                        </button>
+
+                        <form method="post"
+                              asp-page-handler="Delete"
+                              asp-route-id="@e.Id"
+                              onsubmit="return confirm('Delete this event?');"
+                              style="margin:0;">
+                            @Html.AntiForgeryToken()
+                            <button type="submit"
+                                    style="background:#30343a;border:0;color:#fff;font-weight:700;padding:6px 10px;border-radius:6px;cursor:pointer;width:100%;">
+                                Delete
+                            </button>
+                        </form>
+                    </div>
                 </div>
 
                 <div id="edit-@e.Id" style="display:none;border-top:1px solid #262a31;padding:14px 18px;">
                     <form method="post" asp-page-handler="Update" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                        @Html.AntiForgeryToken()
                         <input type="hidden" name="id" value="@e.Id" />
                         <label style="display:flex;flex-direction:column;font-size:.85rem">
                             Matchup
@@ -50,7 +63,7 @@
                         </label>
                         <label style="display:flex;flex-direction:column;font-size:.85rem">
                             Start (UTC)
-                            <input name="startUtc" value="@e.StartUtc" required style="padding:8px;border-radius:6px;border:1px solid #2e323a;color:#000" />
+                            <input type="datetime-local" name="startUtc" value="@e.StartUtc.ToString("yyyy-MM-ddTHH:mm")" required style="padding:8px;border-radius:6px;border:1px solid #2e323a;color:#000" />
                         </label>
                         <label style="display:flex;flex-direction:column;font-size:.85rem">
                             Card
@@ -93,13 +106,14 @@
         </div>
         <div style="padding:14px 18px;">
             <form method="post" asp-page-handler="Add" style="display:grid;grid-template-columns:1fr 1fr;gap:10px;">
+                @Html.AntiForgeryToken()
                 <label style="display:flex;flex-direction:column;font-size:.85rem">
                     Matchup
                     <input name="matchup" placeholder="OLIVEIRA VS MAKHACHEV" required style="padding:10px;border-radius:6px;border:1px solid #2e323a;color:#000" />
                 </label>
                 <label style="display:flex;flex-direction:column;font-size:.85rem">
                     Start (UTC)
-                    <input name="startUtc" placeholder="2025-11-10T23:00:00Z" required style="padding:10px;border-radius:6px;border:1px solid #2e323a;color:#000" />
+                    <input type="datetime-local" name="startUtc" required style="padding:10px;border-radius:6px;border:1px solid #2e323a;color:#000" />
                 </label>
                 <label style="display:flex;flex-direction:column;font-size:.85rem">
                     Card
