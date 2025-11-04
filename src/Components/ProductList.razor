@@ -80,9 +80,9 @@
                     </div>
                 </div>
                 <div class="modal-footer fighter-modal-footer">
-                    <a class="btn btn-primary" href="@selectedProduct.Url" target="_blank" rel="noopener">
-                        View full profile
-                    </a>
+                    <a class="btn btn-primary" href="/Product/Index?id=@selectedProduct.Id" target="_blank" rel="noopener">Read</a>
+                    <a class="btn btn-secondary" href="/Product/Update?id=@selectedProduct.Id" target="_blank" rel="noopener">Update</a>
+                    <a class="btn btn-danger" href="/Product/Delete?id=@selectedProduct.Id" target="_blank" rel="noopener">Delete</a>
                 </div>
             </div>
         </div>
