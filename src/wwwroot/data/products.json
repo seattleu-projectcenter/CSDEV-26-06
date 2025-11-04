@@ -17,12 +17,13 @@
     "DOB": "May 30, 1988",
     "Status": null,
     "Hometown": null,
+    "earnings": 2000000,
     "CommentList": []
   },
   {
     "Id": "ufc-jon-jones",
     "Maker": "UFC",
-    "img": "https://preview.redd.it/the-evolution-of-jon-jones-v0-n65m0hlin21e1.png?width=389\u0026format=png\u0026auto=webp\u0026s=a74bf88d857de2e79377a1981c3054b382bc9d0e",
+    "img": "https://preview.redd.it/the-evolution-of-jon-jones-v0-n65m0hlin21e1.png?width=389&format=png&auto=webp&s=a74bf88d857de2e79377a1981c3054b382bc9d0e",
     "Url": "https://www.ufc.com/athlete/jon-jones",
     "Title": "Jon Jones",
     "Record": "28-1-0",
@@ -30,13 +31,14 @@
     "Ratings": null,
     "ProductType": 0,
     "Nickname": "Bones",
-    "Height": "6\u00274\u0022",
+    "Height": "6'4\"",
     "Weight": "248 lbs",
     "Reach": "84.5 in",
     "Stance": "Orthodox",
     "DOB": "July 19, 1987",
     "Status": null,
     "Hometown": null,
+    "earnings": 7000000,
     "CommentList": []
   },
   {
@@ -50,13 +52,14 @@
     "Ratings": null,
     "ProductType": 0,
     "Nickname": "The Great",
-    "Height": "5\u00276\u0022",
+    "Height": "5'6\"",
     "Weight": "145 lbs",
     "Reach": "71.5 in",
     "Stance": "Orthodox",
     "DOB": "September 29, 1988",
     "Status": null,
     "Hometown": null,
+    "earnings": 3500000,
     "CommentList": []
   },
   {
@@ -70,13 +73,14 @@
     "Ratings": null,
     "ProductType": 0,
     "Nickname": "Magnum",
-    "Height": "5\u00274\u0022",
+    "Height": "5'4\"",
     "Weight": "115 lbs",
     "Reach": "63 in",
     "Stance": "Orthodox",
     "DOB": "August 13, 1989",
     "Status": null,
     "Hometown": null,
+    "earnings": 1200000,
     "CommentList": []
   },
   {
@@ -90,19 +94,20 @@
     "Ratings": null,
     "ProductType": 0,
     "Nickname": "The Cannibal",
-    "Height": "5\u00275\u0022",
+    "Height": "5'5\"",
     "Weight": "125 lbs",
     "Reach": "67.5 in",
     "Stance": "Orthodox",
     "DOB": "April 16, 1990",
     "Status": null,
     "Hometown": null,
+    "earnings": 800000,
     "CommentList": []
   },
   {
     "Id": "ufc-alex-pereira",
     "Maker": "UFC",
-    "img": "https://preview.redd.it/is-alex-pereiras-time-as-champion-over-v0-4n9yb3c0vvre1.png?width=460\u0026format=png\u0026auto=webp\u0026s=065c740b6af9b80408b46abd44a56e7e6893dc7f",
+    "img": "https://preview.redd.it/is-alex-pereiras-time-as-champion-over-v0-4n9yb3c0vvre1.png?width=460&format=png&auto=webp&s=065c740b6af9b80408b46abd44a56e7e6893dc7f",
     "Url": "https://www.ufc.com/athlete/alex-pereira",
     "Title": "Alex Pereira",
     "Record": "13-3-0",
@@ -110,13 +115,14 @@
     "Ratings": null,
     "ProductType": 0,
     "Nickname": "Poatan",
-    "Height": "6\u00274\u0022",
+    "Height": "6'4\"",
     "Weight": "205 lbs",
     "Reach": "79 in",
     "Stance": "Orthodox",
     "DOB": "July 7, 1987",
     "Status": null,
     "Hometown": null,
+    "earnings": 2500000,
     "CommentList": []
   },
   {
@@ -130,13 +136,14 @@
     "Ratings": null,
     "ProductType": 0,
     "Nickname": "Kimbo Slice",
-    "Height": "6\u00272\u0022",
+    "Height": "6'2\"",
     "Weight": "225 lbs",
     "Reach": "77 in",
     "Stance": "Orthodox",
-    "DOB": "February 8, 1974 \u2013 June 6, 2016",
+    "DOB": "February 8, 1974 – June 6, 2016",
     "Status": null,
     "Hometown": null,
+    "earnings": 500000,
     "CommentList": []
   },
   {
@@ -157,6 +164,7 @@
     "DOB": null,
     "Status": null,
     "Hometown": null,
+    "earnings": 0,
     "CommentList": []
   }
 ]

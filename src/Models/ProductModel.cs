@@ -41,7 +41,10 @@ namespace ContosoCrafts.WebSite.Models
         
         public string Status { get; set; }
 
-        public string Hometown { get; set; } 
+        public string Hometown { get; set; }
+
+        [JsonPropertyName("earnings")]
+        public long Earnings { get; set; }
 
         // Store the Comments entered by the users on this product
         public List<CommentModel> CommentList { get; set; } = new List<CommentModel>();

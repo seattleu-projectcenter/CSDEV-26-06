@@ -75,6 +75,19 @@
                                     <span class="fighter-stat-label">DOB</span>
                                     <span class="fighter-stat-value">@selectedProduct.DateOfBirth</span>
                                 </div>
+                                <div class="fighter-stat">
+                                    <span class="fighter-stat-label">Career Earnings</span>
+                                    <span class="fighter-stat-value">
+                                        @if (selectedProduct.Earnings > 0)
+                                        {
+                                            <text>@selectedProduct.Earnings.ToString("C")</text>
+                                        }
+                                        else
+                                        {
+                                            <text>Not available</text>
+                                        }
+                                    </span>
+                                </div>
                             </div>
                         </div>
                     </div>
