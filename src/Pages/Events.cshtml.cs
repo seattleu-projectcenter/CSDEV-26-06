@@ -1,3 +1,4 @@
+#nullable enable
 using System;
 using System.Collections.Generic;
 using System.IO;
@@ -10,13 +11,11 @@ using Microsoft.Extensions.Logging;
 
 namespace ContosoCrafts.WebSite.Pages
 {
-    /// <summary>
-    /// Events page simple in-page model 
-    /// </summary>
     public class EventsModel : PageModel
     {
         private readonly ILogger<EventsModel> _logger;
         private readonly IWebHostEnvironment _env;
+        private static readonly object _fileLock = new object();
 
         public EventsModel(ILogger<EventsModel> logger, IWebHostEnvironment env)
         {
@@ -42,65 +41,167 @@ namespace ContosoCrafts.WebSite.Pages
 
         private IList<EventDto> Load()
         {
-            var dir = Path.GetDirectoryName(JsonPath)!;
-            if (!Directory.Exists(dir)) Directory.CreateDirectory(dir);
-            if (!System.IO.File.Exists(JsonPath)) System.IO.File.WriteAllText(JsonPath, "[]");
+            lock (_fileLock)
+            {
+                try
+                {
+                    var dir = Path.GetDirectoryName(JsonPath)!;
+                    if (!Directory.Exists(dir))
+                        Directory.CreateDirectory(dir);
 
-            var json = System.IO.File.ReadAllText(JsonPath);
-            return JsonSerializer.Deserialize<List<EventDto>>(json,
-                new JsonSerializerOptions { PropertyNameCaseInsensitive = true }) ?? new List<EventDto>();
+                    if (!System.IO.File.Exists(JsonPath))
+                    {
+                        System.IO.File.WriteAllText(JsonPath, "[]");
+                        return new List<EventDto>();
+                    }
+
+                    var json = System.IO.File.ReadAllText(JsonPath);
+
+                    // Handle empty or whitespace-only files
+                    if (string.IsNullOrWhiteSpace(json))
+                    {
+                        System.IO.File.WriteAllText(JsonPath, "[]");
+                        return new List<EventDto>();
+                    }
+
+                    var result = JsonSerializer.Deserialize<List<EventDto>>(json,
+                        new JsonSerializerOptions { PropertyNameCaseInsensitive = true });
+
+                    return result ?? new List<EventDto>();
+                }
+                catch (JsonException ex)
+                {
+                    _logger.LogError(ex, "Failed to parse events.json. Resetting to empty list.");
+                    System.IO.File.WriteAllText(JsonPath, "[]");
+                    return new List<EventDto>();
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error loading events");
+                    return new List<EventDto>();
+                }
+            }
         }
-
         /// <summary>
-        /// Saves event data back to JSON file.
+        /// Saves updated event data back to the json file
         /// </summary>
         private void Save(IEnumerable<EventDto> items)
         {
-            var json = JsonSerializer.Serialize(items, new JsonSerializerOptions { WriteIndented = true });
-            System.IO.File.WriteAllText(JsonPath, json);
+            lock (_fileLock)
+            {
+                try
+                {
+                    var dir = Path.GetDirectoryName(JsonPath)!;
+                    if (!Directory.Exists(dir))
+                        Directory.CreateDirectory(dir);
+
+                    var json = JsonSerializer.Serialize(items, new JsonSerializerOptions { WriteIndented = true });
+
+                    // Write to temp file first, then move (atomic operation)
+                    var tempPath = JsonPath + ".tmp";
+                    System.IO.File.WriteAllText(tempPath, json);
+                    System.IO.File.Move(tempPath, JsonPath, overwrite: true);
+
+                    _logger.LogInformation("Saved {Count} events to {Path}", items.Count(), JsonPath);
+                }
+                catch (Exception ex)
+                {
+                    _logger.LogError(ex, "Error saving events");
+                }
+            }
         }
 
         public void OnGet()
         {
             Events = Load().OrderBy(e => e.StartUtc).ToList();
         }
-
-
+        /// <summary>
+        /// Adds a new event to the list and saves it to json
+        /// </summary>
         public IActionResult OnPostAdd(string matchup, DateTimeOffset startUtc, string? card, string? venue, string? location)
         {
-            var items = Load();
-            items.Add(new EventDto
+            try
             {
-                Matchup = matchup,
-                StartUtc = startUtc,
-                Card = card ?? "",
-                Venue = venue ?? "",
-                Location = location ?? ""
-            });
-            Save(items);
-            return RedirectToPage();
-        }
-
-        /// <summary>
-        /// Updates an existing event record.
-        /// </summary>
-        public IActionResult OnPostUpdate(string id, string matchup, DateTimeOffset startUtc, string? card, string? venue, string? location)
-        {
-            var items = Load().ToList();
-            var index = items.FindIndex(e => e.Id == id);
-            if (index >= 0)
-            {
-                items[index] = new EventDto
+                var items = Load().ToList();
+                items.Add(new EventDto
                 {
-                    Id = id,
                     Matchup = matchup,
                     StartUtc = startUtc,
                     Card = card ?? "",
                     Venue = venue ?? "",
                     Location = location ?? ""
-                };
+                });
                 Save(items);
+                _logger.LogInformation("Added event: {Matchup}", matchup);
             }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error adding event");
+            }
+
+            return RedirectToPage();
+        }
+        /// <summary>
+        /// Updates an existing event by ID and the changes
+        /// </summary>
+        public IActionResult OnPostUpdate(string id, string matchup, DateTimeOffset startUtc, string? card, string? venue, string? location)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                return RedirectToPage();
+
+            try
+            {
+                var items = Load().ToList();
+                var ev = items.FirstOrDefault(e => e.Id == id);
+
+                if (ev != null)
+                {
+                    ev.Matchup = matchup;
+                    ev.StartUtc = startUtc;
+                    ev.Card = card ?? "";
+                    ev.Venue = venue ?? "";
+                    ev.Location = location ?? "";
+
+                    Save(items);
+                    _logger.LogInformation("Updated event: {Id}", id);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error updating event {Id}", id);
+            }
+
+            return RedirectToPage();
+        }
+        /// <summary>
+        /// Deletes an event by its ID from the json file
+        /// </summary>
+        public IActionResult OnPostDelete(string id)
+        {
+            if (string.IsNullOrWhiteSpace(id))
+                return RedirectToPage();
+
+            try
+            {
+                var items = Load().ToList();
+                var initialCount = items.Count;
+                items.RemoveAll(e => e.Id == id);
+
+                if (items.Count < initialCount)
+                {
+                    Save(items);
+                    _logger.LogInformation("Deleted event: {Id}. Remaining events: {Count}", id, items.Count);
+                }
+                else
+                {
+                    _logger.LogWarning("Event {Id} not found for deletion", id);
+                }
+            }
+            catch (Exception ex)
+            {
+                _logger.LogError(ex, "Error deleting event {Id}", id);
+            }
+
             return RedirectToPage();
         }
     }
