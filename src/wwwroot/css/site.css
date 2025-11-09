@@ -266,6 +266,7 @@ a.navbar-brand {
   .fighter-modal-hero {
     flex-direction: row;
   }
+}
 
   .fighter-modal-image {
     flex: 1 1 45%;
@@ -448,4 +449,17 @@ body.dark-mode {
     background: #fff;
     color: #000;
 }
-
+/* custom modal styling for confirmAddModal */
+#confirmAddModal .modal-content {
+  background-color: #1f1f2a;
+  color: #ffffff;
+}
+#confirmAddModal .modal-header,
+#confirmAddModal .modal-footer {
+  border-color: rgba(255,255,255,0.06);
+}
+#confirmAddModal .modal-title { color: #ffdd57; }
+#confirmAddModal .btn-primary { background-color: #e40046; border-color: #e40046; }
+#confirmAddModal .btn-close { filter: invert(1); }
+#confirmAddModal .form-control { background-color: #121216; color: #fff; border-color: rgba(255,255,255,0.08); }
+#confirmAddModal .text-danger { color: #ff6b6b; }

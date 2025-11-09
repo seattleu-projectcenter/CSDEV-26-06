@@ -97,11 +97,53 @@
 
         <div class="d-flex justify-content-between">
             <a asp-page="./Index" class="btn btn-secondary">Cancel</a>
-            <button type="submit" class="btn btn-primary">Add Fighter</button>
+             <button type="button" class="btn btn-primary"
+                    data-toggle="modal" data-target="#confirmAddModal"
+                    data-bs-toggle="modal" data-bs-target="#confirmAddModal">
+                Add Fighter
+            </button>
         </div>
     </form>
+
+    <div class="modal fade" id="confirmAddModal" tabindex="-1" role="dialog" aria-labelledby="confirmAddModalLabel" aria-hidden="true">
+      <div class="modal-dialog" role="document">
+        <div class="modal-content">
+          <div class="modal-header">
+            <h5 class="modal-title" id="confirmAddModalLabel">Confirm Add Fighter</h5>
+            <button type="button" class="close" data-dismiss="modal" data-bs-dismiss="modal" aria-label="Close">
+              <span aria-hidden="true">&times;</span>
+            </button>
+          </div>
+          <div class="modal-body">
+            Are you sure you want to create this fighter?
+          <div class="modal-footer">
+            <button type="button" class="btn btn-secondary" data-dismiss="modal" data-bs-dismiss="modal">Cancel</button>
+            <button id="confirmAddButton" type="button" class="btn btn-primary">Confirm</button>
+          </div>
+        </div>
+      </div>
+    </div>
 </div>
 
 @section Scripts {
     <partial name="_ValidationScriptsPartial" />
+    <script>
+    document.addEventListener('DOMContentLoaded', function(){
+      var confirmBtn = document.getElementById('confirmAddButton');
+      if (!confirmBtn) return;
+      confirmBtn.addEventListener('click', function(){
+        var form = document.querySelector('form.fighter-update-form');
+        if (!form) return;
+        // If jquery.validate is available, run client-side validation first
+        if (window.jQuery && $(form).valid && typeof $(form).valid === 'function') {
+          if (!$(form).valid()) {
+            // keep modal open to show validation messages
+            return;
+          }
+        }
+        // submit the form (will trigger server-side validation)
+        form.submit();
+      });
+    });
+    </script>
 }
