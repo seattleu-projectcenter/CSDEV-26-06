@@ -1,0 +1,20 @@
+[
+  {
+    "Id": "70b0ba3d-fef3-4aa5-b398-d1d732a9d26e",
+    "Matchup": "Della Maddalena vs Makhachev",
+    "StartUtc": "2025-11-15T19:00:00-08:00",
+    "Card": "UFC 322",
+    "Venue": "Madison Square Garden",
+    "Location": "New York, New York",
+    "LocalStartDisplay": "Sat, Nov 15 \u2022 7:00 PM"
+  },
+  {
+    "Id": "d0605098-cb96-4cc4-861d-ae6509e8d11b",
+    "Matchup": "Tsarukyan vs Hooker",
+    "StartUtc": "2025-11-22T10:00:00-08:00",
+    "Card": "UFC FIGHT NIGHT: Tsarukyan vs Hooker",
+    "Venue": "ABHA Arena",
+    "Location": "Al Rayyan, Qatar",
+    "LocalStartDisplay": "Sat, Nov 22 \u2022 10:00 AM"
+  }
+]
