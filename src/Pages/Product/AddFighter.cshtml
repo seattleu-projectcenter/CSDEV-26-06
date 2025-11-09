@@ -10,6 +10,8 @@
     <h1 class="mb-4">Add Fighter</h1>
 
     <form method="post" class="fighter-update-form">
+        @Html.AntiForgeryToken()
+
         <div asp-validation-summary="ModelOnly" class="text-danger"></div>
 
         <div class="form-row">
@@ -20,7 +22,8 @@
             </div>
             <div class="form-group col-md-6">
                 <label asp-for="Product.Nickname"></label>
-                <input asp-for="Product.Nickname" class="form-control" />
+                <input asp-for="Product.Nickname" class="form-control" required/>
+                <span asp-validation-for="Product.Nickname" class="text-danger"></span>
             </div>
         </div>
 
@@ -28,56 +31,67 @@
             <div class="form-group col-md-4">
                 <label asp-for="Product.Record"></label>
                 <input asp-for="Product.Record" class="form-control" />
+                <span asp-validation-for="Product.Record" class="text-danger"></span>
             </div>
             <div class="form-group col-md-4">
                 <label asp-for="Product.Status"></label>
-                <input asp-for="Product.Status" class="form-control" />
+                <input asp-for="Product.Status" class="form-control" required/>
+                <span asp-validation-for="Product.Status" class="text-danger"></span>
             </div>
             <div class="form-group col-md-4">
                 <label asp-for="Product.Hometown"></label>
-                <input asp-for="Product.Hometown" class="form-control" />
+                <input asp-for="Product.Hometown" class="form-control" required/>
+                <span asp-validation-for="Product.Hometown" class="text-danger"></span>
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-4">
                 <label asp-for="Product.Height"></label>
-                <input asp-for="Product.Height" class="form-control" />
+                <input asp-for="Product.Height" class="form-control" required/>
+                <span asp-validation-for="Product.Height" class="text-danger"></span>
             </div>
             <div class="form-group col-md-4">
                 <label asp-for="Product.Weight"></label>
-                <input asp-for="Product.Weight" class="form-control" />
+                <input asp-for="Product.Weight" class="form-control" required/>
+                <span asp-validation-for="Product.Weight" class="text-danger"></span>
             </div>
             <div class="form-group col-md-4">
                 <label asp-for="Product.Reach"></label>
-                <input asp-for="Product.Reach" class="form-control" />
+                <input asp-for="Product.Reach" class="form-control" required/>
+                <span asp-validation-for="Product.Reach" class="text-danger"></span>
             </div>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label asp-for="Product.Stance"></label>
-                <input asp-for="Product.Stance" class="form-control" />
+                <input asp-for="Product.Stance" class="form-control" required/>
+                <span asp-validation-for="Product.Stance" class="text-danger"></span>
             </div>
             <div class="form-group col-md-6">
                 <label asp-for="Product.DateOfBirth"></label>
-                <input asp-for="Product.DateOfBirth" class="form-control" />
+                <input asp-for="Product.DateOfBirth" class="form-control" required/>
+                <span asp-validation-for="Product.DateOfBirth" class="text-danger"></span>
             </div>
         </div>
 
         <div class="form-group">
             <label asp-for="Product.Description"></label>
             <textarea asp-for="Product.Description" class="form-control" rows="5"></textarea>
+            <span asp-validation-for="Product.Description" class="text-danger"></span>
         </div>
 
         <div class="form-row">
             <div class="form-group col-md-6">
                 <label asp-for="Product.Url"></label>
                 <input asp-for="Product.Url" class="form-control" />
+                <span asp-validation-for="Product.Url" class="text-danger"></span>
             </div>
             <div class="form-group col-md-6">
                 <label asp-for="Product.Image"></label>
                 <input asp-for="Product.Image" class="form-control" />
+                <span asp-validation-for="Product.Image" class="text-danger"></span>
             </div>
         </div>
 
