@@ -449,17 +449,17 @@ body.dark-mode {
     background: #fff;
     color: #000;
 }
-/* custom modal styling for confirmAddModal */
-#confirmAddModal .modal-content {
+/* custom modal styling for confirmation modals */
+.confirm-action-modal .modal-content {
   background-color: #1f1f2a;
   color: #ffffff;
 }
-#confirmAddModal .modal-header,
-#confirmAddModal .modal-footer {
+.confirm-action-modal .modal-header,
+.confirm-action-modal .modal-footer {
   border-color: rgba(255,255,255,0.06);
 }
-#confirmAddModal .modal-title { color: #ffdd57; }
-#confirmAddModal .btn-primary { background-color: #e40046; border-color: #e40046; }
-#confirmAddModal .btn-close { filter: invert(1); }
-#confirmAddModal .form-control { background-color: #121216; color: #fff; border-color: rgba(255,255,255,0.08); }
-#confirmAddModal .text-danger { color: #ff6b6b; }
+.confirm-action-modal .modal-title { color: #ffdd57; }
+.confirm-action-modal .btn-primary { background-color: #e40046; border-color: #e40046; }
+.confirm-action-modal .btn-close { filter: invert(1); }
+.confirm-action-modal .form-control { background-color: #121216; color: #fff; border-color: rgba(255,255,255,0.08); }
+.confirm-action-modal .text-danger { color: #ff6b6b; }
