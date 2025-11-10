@@ -1,4 +1,3 @@
-using System;
 using System.Text.Json;
 using System.Text.Json.Serialization;
 using System.ComponentModel.DataAnnotations;
@@ -48,10 +47,10 @@ namespace ContosoCrafts.WebSite.Models
         [Required(ErrorMessage = "Stance is required")]
         public string Stance { get; set; }
 
-    [Required(ErrorMessage = "Date of Birth is required")]
-    [JsonPropertyName("DOB")]
-    [DataType(DataType.Date)]
-    public DateTime? DateOfBirth { get; set; }
+        [Required(ErrorMessage = "Date of Birth is required")]
+        [JsonPropertyName("DOB")]
+        [DataType(DataType.Date)]
+        public string DateOfBirth { get; set; }
         
         [Required(ErrorMessage = "Status is required")]
         public string Status { get; set; }
