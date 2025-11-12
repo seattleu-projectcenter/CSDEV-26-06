@@ -42,15 +42,54 @@ namespace UnitTests.Pages.Product.Update
         }
 
         [Test]
-        public void OnGet_ValidId_Should_Load_Product_And_Return_Page()
+        public void OnGet_EmptyId_Should_Redirect_To_Index()
         {
             // Act
-            var result = _pageModel.OnGet("ufc-amanda-nunes");
+            var result = _pageModel.OnGet("");
+
+            // Assert
+            Assert.IsInstanceOf<RedirectToPageResult>(result);
+            Assert.AreEqual("./Index", ((RedirectToPageResult)result).PageName);
+        }
+
+        [Test]
+        public void OnGet_WhitespaceId_Should_Redirect_To_Index()
+        {
+            // Act
+            var result = _pageModel.OnGet("   ");
+
+            // Assert
+            Assert.IsInstanceOf<RedirectToPageResult>(result);
+            Assert.AreEqual("./Index", ((RedirectToPageResult)result).PageName);
+        }
+
+        [Test]
+        public void OnGet_ValidId_Should_Load_Product_And_Return_Page()
+        {
+            // Arrange
+            var validId = "ufc-alexander-volkanovski";
+
+            // Act
+            var result = _pageModel.OnGet(validId);
 
             // Assert
             Assert.IsInstanceOf<PageResult>(result);
             Assert.IsNotNull(_pageModel.Product);
-            Assert.AreEqual("Amanda Nunes", _pageModel.Product.Title);
+            Assert.AreEqual("Alexander Volkanovski", _pageModel.Product.Title);
+        }
+
+        [Test]
+        public void OnGet_ValidId_Should_Set_Product_Property()
+        {
+            // Arrange
+            var validId = "ufc-alexander-volkanovski";
+
+            // Act
+            _pageModel.OnGet(validId);
+
+            // Assert
+            Assert.IsNotNull(_pageModel.Product);
+            Assert.AreEqual(validId, _pageModel.Product.Id);
         }
 
         #endregion OnGet
@@ -97,20 +136,20 @@ namespace UnitTests.Pages.Product.Update
             // Arrange
             _pageModel.Product = new ProductModel
             {
-                Id = "ufc-amanda-nunes",
+                Id = "ufc-alexander-volkanovski",
                 Title = "Updated Title",
                 Description = "Updated description",
-                Url = "https://www.ufc.com/tuf",
-                Image = "image",
-                Nickname = "Nickname",
-                Record = "10-0",
-                Height = "6'0\"",
-                Weight = "200 lbs",
-                Reach = "75 in",
+                Url = "https://www.ufc.com/athlete/alexander-volkanovski",
+                Image = "https://dmxg5wxfqgb4u.cloudfront.net/styles/athlete_bio_full_body/s3/2024-02/VOLKANOVSKI_ALEXANDER_L_BELT_02-17.png?itok=92BzRoRw",
+                Nickname = "The Great",
+                Record = "27-4-0",
+                Height = "5'6\"",
+                Weight = "145 lbs",
+                Reach = "71.5 in",
                 Stance = "Orthodox",
-                DateOfBirth = "Jan 1 1990",
+                DateOfBirth = "September 29, 1988",
                 Status = "Active",
-                Hometown = "Anywhere",
+                Hometown = "Australia",
             };
 
             // Act
@@ -119,7 +158,7 @@ namespace UnitTests.Pages.Product.Update
             // Assert
             Assert.IsInstanceOf<RedirectToPageResult>(result);
             Assert.AreEqual("./Index", ((RedirectToPageResult)result).PageName);
-            Assert.AreEqual("ufc-amanda-nunes", ((RedirectToPageResult)result).RouteValues["id"]);
+            Assert.AreEqual("ufc-alexander-volkanovski", ((RedirectToPageResult)result).RouteValues["id"]);
         }
 
         #endregion OnPost

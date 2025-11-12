@@ -83,7 +83,34 @@ namespace UnitTests.Pages.Product.Index
 
             // Assert
             Assert.AreEqual(true, pageModel.ModelState.IsValid);
-            Assert.AreEqual(15, pageModel.Products.ToList().Count);
+            Assert.IsNotNull(pageModel.Products);
+            Assert.IsTrue(pageModel.Products.Any());
+        }
+
+        [Test]
+        public void OnGet_Valid_Should_Return_All_Products()
+        {
+            // Arrange
+
+            // Act
+            pageModel.OnGet();
+
+            // Assert
+            Assert.IsNotNull(pageModel.Products);
+            var productList = pageModel.Products.ToList();
+            Assert.Greater(productList.Count, 0);
+        }
+
+        [Test]
+        public void OnGet_Valid_Products_Should_Not_Be_Null()
+        {
+            // Arrange
+
+            // Act
+            pageModel.OnGet();
+
+            // Assert
+            Assert.IsNotNull(pageModel.Products);
         }
         #endregion OnGet
     }

@@ -27,11 +27,11 @@ namespace UnitTests.Pages.Product.Delete
             // Arrange
 
             // Act
-            _pageModel.OnGet("ufc-amanda-nunes");
+            _pageModel.OnGet("ufc-alexander-volkanovski");
 
             // Assert
             Assert.AreEqual(true, _pageModel.ModelState.IsValid);
-            Assert.AreEqual("Amanda Nunes", _pageModel.Product.Title);
+            Assert.AreEqual("Alexander Volkanovski", _pageModel.Product.Title);
         }
 
         [Test]
@@ -65,7 +65,7 @@ namespace UnitTests.Pages.Product.Delete
             // Arrange
 
             // Act
-            var result = _pageModel.OnGet("ufc-amanda-nunes");
+            var result = _pageModel.OnGet("ufc-alexander-volkanovski");
 
             // Assert
             Assert.IsInstanceOf<PageResult>(result);
@@ -75,7 +75,7 @@ namespace UnitTests.Pages.Product.Delete
         public void OnGet_ValidId_Should_Set_Product_Property()
         {
             // Arrange
-            var validId = "ufc-amanda-nunes";
+            var validId = "ufc-alexander-volkanovski";
 
             // Act
             _pageModel.OnGet(validId);
@@ -83,6 +83,30 @@ namespace UnitTests.Pages.Product.Delete
             // Assert
             Assert.IsNotNull(_pageModel.Product);
             Assert.AreEqual(validId, _pageModel.Product.Id);
+        }
+
+        [Test]
+        public void OnGet_EmptyId_Should_Return_NotFound()
+        {
+            // Arrange
+
+            // Act
+            var result = _pageModel.OnGet("");
+
+            // Assert
+            Assert.IsInstanceOf<NotFoundResult>(result);
+        }
+
+        [Test]
+        public void OnGet_WhitespaceId_Should_Return_NotFound()
+        {
+            // Arrange
+
+            // Act
+            var result = _pageModel.OnGet("   ");
+
+            // Assert
+            Assert.IsInstanceOf<NotFoundResult>(result);
         }
         #endregion OnGet
 
