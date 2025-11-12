@@ -12,7 +12,7 @@ namespace UnitTests.Models
     public class CommentModelTests
     {
         [Test]
-        public void DefaultConstructor_Should_Assign_Unique_Valid_Id()
+        public void Comment_Valid_And_UniqueID_On_Construction()
         {
             // Arrange
             CommentModel comment1 = null;
