@@ -10,48 +10,46 @@
     <link href="https://fonts.googleapis.com/css?family=Nunito&display=swap" rel="stylesheet">
 </head>
 <body>
-<header>
-    <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar border-bottom box-shadow mb-3">
-        <a class="navbar-brand" asp-area="" asp-page="/Index">
-            <img src="~/logo.png" class="navbar-logo">
-        </a>
-        <div class="container">
-            <div class="navbar-collapse collapse align-items-center">
-                <ul class="navbar-nav mr-auto">
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-page="/Events">EVENTS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-page="/Product/Index">RANKINGS</a>
-                    </li>
-                    <li class="nav-item">
-                        <a class="nav-link" asp-area="" asp-page="/About">ABOUT</a>
-                    </li>
-                </ul>
-                <form class="form-inline my-2 my-sm-0 ml-auto" method="get" asp-page="/Search">
-                    <div class="input-group navbar-search">
-                        <input
-                            type="text"
-                            class="form-control"
-                            name="q"
-                            placeholder=""
-                            aria-label="Search" />
-                        <div class="input-group-append">
-                            <button class="btn btn-search" type="submit">SEARCH</button>
+    <header>
+        <nav class="navbar navbar-expand-sm navbar-toggleable-sm navbar-light bg-navbar border-bottom box-shadow mb-3">
+            <a class="navbar-brand" asp-area="" asp-page="/Index">
+                <img src="~/logo.png" class="navbar-logo">
+            </a>
+            <div class="container">
+                <div class="navbar-collapse collapse align-items-center">
+                    <ul class="navbar-nav mr-auto">
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Events">EVENTS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/Product/Index">RANKINGS</a>
+                        </li>
+                        <li class="nav-item">
+                            <a class="nav-link" asp-area="" asp-page="/About">ABOUT</a>
+                        </li>
+                    </ul>
+                    <form class="form-inline my-2 my-sm-0 ml-auto" id="navSearchForm">
+                        <div class="input-group navbar-search">
+                            <input type="text"
+                                   class="form-control"
+                                   id="navSearchInput"
+                                   name="q"
+                                   placeholder="Search fighters..."
+                                   aria-label="Search" />
+                            <div class="input-group-append">
+                                <button class="btn btn-search" type="submit">SEARCH</button>
+                            </div>
                         </div>
-                    </div>
-                </form>
+                    </form>
+                </div>
             </div>
-        </div>
-    </nav>
-</header>
-
+        </nav>
+    </header>
     <div class="container">
         <main role="main" class="pb-3">
             @RenderBody()
         </main>
     </div>
-
     <footer class="border-top footer text-muted bg-footer">
         <div class="container">
             &copy; 2025 UFC Fighter Database — CS-26-06 - <a asp-area="" asp-page="/Privacy">Privacy</a>
@@ -63,10 +61,71 @@
             </label>
         </div>
     </footer>
-
     <script src="~/lib/jquery/dist/jquery.js"></script>
     <script src="~/lib/bootstrap/dist/js/bootstrap.bundle.js"></script>
     <script src="~/js/site.js" asp-append-version="true"></script>
+
+    <script>
+        /// <summary>
+        /// Navigation search bar functionality for real-time fighter filtering
+        /// Implements client side search to filter fighter cards without page reload
+        /// Searches across fighter name, nickname, and record
+        /// </summary>
+        document.addEventListener('DOMContentLoaded', function () {
+            const navSearchInput = document.getElementById('navSearchInput');
+            const navSearchForm = document.getElementById('navSearchForm');
+
+            if (navSearchInput && navSearchForm) {
+                navSearchForm.addEventListener('submit', function (e) {
+                    e.preventDefault();
+                });
+
+                // Real time filtering on input
+                navSearchInput.addEventListener('input', function () {
+                    const searchTerm = this.value.toLowerCase().trim();
+                    const fighterCards = document.querySelectorAll('.fighter-card');
+                    const noResultsMessage = document.getElementById('noResultsMessage');
+                    let visibleCount = 0;
+
+                    // If search bar is empty show all fighters
+                    if (searchTerm === '') {
+                        fighterCards.forEach(function (card) {
+                            card.style.display = '';
+                        });
+                        if (noResultsMessage) {
+                            noResultsMessage.style.display = 'none';
+                        }
+                        return;
+                    }
+
+                    // Filter fighters based on search term
+                    fighterCards.forEach(function (card) {
+                        const title = card.getAttribute('data-title') || '';
+                        const nickname = card.getAttribute('data-nickname') || '';
+                        const record = card.getAttribute('data-record') || '';
+
+                        // Check if any field contains the search term
+                        if (title.includes(searchTerm) ||
+                            nickname.includes(searchTerm) ||
+                            record.includes(searchTerm)) {
+                            card.style.display = '';
+                            visibleCount++;
+                        } else {
+                            card.style.display = 'none';
+                        }
+                    });
+
+                    // Show No results found message if no matches
+                    if (noResultsMessage) {
+                        if (visibleCount === 0) {
+                            noResultsMessage.style.display = 'block';
+                        } else {
+                            noResultsMessage.style.display = 'none';
+                        }
+                    }
+                });
+            }
+        });</script>
 
     @RenderSection("Scripts", required: false)
 </body>
