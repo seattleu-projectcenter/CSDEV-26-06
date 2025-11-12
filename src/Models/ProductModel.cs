@@ -29,9 +29,7 @@ namespace ContosoCrafts.WebSite.Models
         public string Description { get; set; }
 
         public int[] Ratings { get; set; }
-
-        public ProductTypeEnum ProductType { get; set; } = ProductTypeEnum.Undefined;
-
+        
         [Required(ErrorMessage = "Nickname is required")]
         public string Nickname { get; set; }
 
