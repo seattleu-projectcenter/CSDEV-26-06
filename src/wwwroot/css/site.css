@@ -458,6 +458,43 @@ body.dark-mode {
 .confirm-action-modal .modal-footer {
   border-color: rgba(255,255,255,0.06);
 }
+/* Back to Top Button */
+.back-to-top-btn {
+    position: fixed;
+    bottom: 100px;
+    right: 30px;
+    width: 65px;
+    height: 65px;
+    background-color: #d20a0a;
+    color: white;
+    border: 3px solid #000;
+    border-radius: 50%;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    font-size: 9px;
+    font-weight: 700;
+    text-transform: uppercase;
+    cursor: pointer;
+    z-index: 9999;
+    transition: all 0.3s;
+}
+
+    .back-to-top-btn:hover {
+        background-color: #000;
+        border-color: #d20a0a;
+        transform: translateY(-3px);
+    }
+
+@media (max-width: 768px) {
+    .back-to-top-btn {
+        width: 60px;
+        height: 60px;
+        bottom: 100px;
+        right: 20px;
+    }
+}
 .confirm-action-modal .modal-title { color: #ffdd57; }
 .confirm-action-modal .btn-primary { background-color: #e40046; border-color: #e40046; }
 .confirm-action-modal .btn-close { filter: invert(1); }
