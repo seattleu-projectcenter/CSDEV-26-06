@@ -20,8 +20,6 @@ namespace UnitTests.Models
             var json = product.ToString();
 
             // Assert
-            Assert.IsNotNull(json, "ToString should not return null.");
-
             Assert.That(json, Does.Contain("\"Title\":\"Max Holloway\""));
             Assert.That(json, Does.Contain("\"Maker\":\"UFC\""));
         }
