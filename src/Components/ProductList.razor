@@ -3,10 +3,20 @@
 @using Microsoft.AspNetCore.Components.Web
 @inject JsonFileProductService ProductService
 
+<div id="noResultsMessage" class="alert alert-info" style="display: none;" role="alert">
+    No results found. Try a different search term.
+</div>
+
 <div class="card-columns fighter-grid">
     @foreach (var product in ProductService.GetAllData())
     {
-        <div class="card fighter-card" data-toggle="modal" data-target="#productModal" @onclick="(e => SelectProduct(product.Id))">
+        <div class="card fighter-card"
+             data-title="@(product.Title?.ToLower() ?? "")"
+             data-nickname="@(product.Nickname?.ToLower() ?? "")"
+             data-record="@(product.Record?.ToLower() ?? "")"
+             data-toggle="modal"
+             data-target="#productModal"
+             @onclick="(e => SelectProduct(product.Id))">
             <div class="card-img" style="background-image: url('@product.Image');">
                 <div class="fighter-card-overlay">
                     <span class="fighter-card-status">@product.Status</span>
