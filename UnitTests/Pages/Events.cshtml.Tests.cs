@@ -275,6 +275,104 @@ namespace UnitTests.Pages.Events
         }
 
         [Test]
+        public void OnPostDelete_AlreadyDeleted_ShouldLogWarning()
+        {
+            using var root = TempWebRoot.Create();
+            WriteEvents(root, new EventsModel.EventDto { Id = "existing", Matchup = "Stay" });
+            var model = CreateModel(root.Path);
+
+            // Delete the same event twice
+            model.OnPostDelete("existing");
+            var result = model.OnPostDelete("existing");
+
+            // Assert - Should return redirect even though event wasn't found
+            Assert.IsInstanceOf<RedirectToPageResult>(result);
+            var saved = ReadEvents(root);
+            Assert.AreEqual(0, saved.Length);
+        }
+
+        [Test]
+        public void Save_Success_ShouldLogInformation()
+        {
+            using var root = TempWebRoot.Create();
+            var model = CreateModel(root.Path);
+
+            // Add an event which triggers Save with LogInformation
+            model.OnPostAdd("Test Event", DateTimeOffset.UtcNow, "Main Card", "Arena", "City");
+
+            // Verify the event was saved
+            var saved = ReadEvents(root);
+            Assert.AreEqual(1, saved.Length);
+            Assert.AreEqual("Test Event", saved[0].Matchup);
+        }
+
+        [Test]
+        public void Save_WithExistingDirectory_ShouldWriteToFile()
+        {
+            using var root = TempWebRoot.Create();
+
+            // Create directory first
+            Directory.CreateDirectory(root.DataPath);
+            File.WriteAllText(root.EventsPath, "[]");
+
+            var model = CreateModel(root.Path);
+
+            // Add multiple events to test the save functionality thoroughly
+            model.OnPostAdd("Event 1", DateTimeOffset.UtcNow, "Card 1", "Venue 1", "Location 1");
+            model.OnPostAdd("Event 2", DateTimeOffset.UtcNow.AddDays(1), "Card 2", "Venue 2", "Location 2");
+
+            // Verify both events were saved
+            var saved = ReadEvents(root);
+            Assert.AreEqual(2, saved.Length);
+            Assert.AreEqual("Event 1", saved[0].Matchup);
+            Assert.AreEqual("Event 2", saved[1].Matchup);
+        }
+
+        [Test]
+        public void OnPostUpdate_WithNullOptionalParams_ShouldSetEmptyStrings()
+        {
+            using var root = TempWebRoot.Create();
+            var existing = new EventsModel.EventDto
+            {
+                Id = "test-id",
+                Matchup = "Original Matchup",
+                StartUtc = DateTimeOffset.UtcNow,
+                Card = "Original Card",
+                Venue = "Original Venue",
+                Location = "Original Location"
+            };
+            WriteEvents(root, existing);
+
+            var model = CreateModel(root.Path);
+
+            // Update with null optional parameters
+            model.OnPostUpdate("test-id", "Updated Matchup", existing.StartUtc, null, null, null);
+
+            var saved = ReadEvents(root);
+            Assert.AreEqual("Updated Matchup", saved.Single().Matchup);
+            Assert.AreEqual("", saved.Single().Card);
+            Assert.AreEqual("", saved.Single().Venue);
+            Assert.AreEqual("", saved.Single().Location);
+        }
+
+        [Test]
+        public void OnPostAdd_WithNullOptionalParams_ShouldSetEmptyStrings()
+        {
+            using var root = TempWebRoot.Create();
+            var model = CreateModel(root.Path);
+
+            // Add event with null optional parameters
+            model.OnPostAdd("Test Matchup", DateTimeOffset.UtcNow, null, null, null);
+
+            var saved = ReadEvents(root);
+            Assert.AreEqual(1, saved.Length);
+            Assert.AreEqual("Test Matchup", saved.Single().Matchup);
+            Assert.AreEqual("", saved.Single().Card);
+            Assert.AreEqual("", saved.Single().Venue);
+            Assert.AreEqual("", saved.Single().Location);
+        }
+
+        [Test]
         public void EventDto_LocalStartDisplay_ShouldFormatInLocalTime()
         {
             var dto = new EventsModel.EventDto
@@ -286,6 +384,19 @@ namespace UnitTests.Pages.Events
 
             Assert.IsFalse(string.IsNullOrWhiteSpace(display));
             StringAssert.Contains("•", display);
+        }
+
+        [Test]
+        public void EventDto_DefaultConstructor_ShouldSetDefaults()
+        {
+            var dto = new EventsModel.EventDto();
+
+            Assert.IsNotNull(dto.Id);
+            Assert.IsFalse(string.IsNullOrWhiteSpace(dto.Id));
+            Assert.IsNotNull(dto.Matchup);
+            Assert.IsNotNull(dto.Card);
+            Assert.IsNotNull(dto.Venue);
+            Assert.IsNotNull(dto.Location);
         }
 
         private EventsModel CreateModel(string webRootPath)

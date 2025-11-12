@@ -1,3 +1,4 @@
+using System.IO;
 using NUnit.Framework;
 
 namespace UnitTests.ThemeToggle
@@ -20,7 +21,25 @@ namespace UnitTests.ThemeToggle
     [TestFixture]
     public class ThemeToggleTests
     {
+        private static string _projectRoot;
+        private static string _layoutPath;
+        private static string _siteJsPath;
+        private static string _siteCssPath;
+
         #region TestSetup
+
+        [OneTimeSetUp]
+        public void OneTimeSetup()
+        {
+            // Get the project root by navigating up from the test assembly location
+            var testAssemblyPath = TestContext.CurrentContext.TestDirectory;
+            _projectRoot = Directory.GetParent(testAssemblyPath).Parent.Parent.Parent.FullName;
+
+            // Set up paths relative to project root
+            _layoutPath = Path.Combine(_projectRoot, "src", "Pages", "Shared", "_Layout.cshtml");
+            _siteJsPath = Path.Combine(_projectRoot, "src", "wwwroot", "js", "site.js");
+            _siteCssPath = Path.Combine(_projectRoot, "src", "wwwroot", "css", "site.css");
+        }
 
         [SetUp]
         public void TestInitialize()
@@ -39,11 +58,8 @@ namespace UnitTests.ThemeToggle
         [Test]
         public void ThemeToggle_Structure_Exists_In_Layout()
         {
-            // Arrange
-            var layoutPath = @"C:\Users\Daniel Kirov-Tomilov\Desktop\2025_26_SU\clones\CSDEV-26-06\src\Pages\Shared\_Layout.cshtml";
-
-            // Act
-            var layoutContent = System.IO.File.ReadAllText(layoutPath);
+            // Arrange & Act
+            var layoutContent = File.ReadAllText(_layoutPath);
 
             // Assert
             Assert.IsTrue(layoutContent.Contains("theme-switch-wrapper"), "Layout should contain theme-switch-wrapper div");
@@ -62,11 +78,8 @@ namespace UnitTests.ThemeToggle
         [Test]
         public void ThemeToggle_JavaScript_Exists_In_SiteJs()
         {
-            // Arrange
-            var siteJsPath = @"C:\Users\Daniel Kirov-Tomilov\Desktop\2025_26_SU\clones\CSDEV-26-06\src\wwwroot\js\site.js";
-
-            // Act
-            var siteJsContent = System.IO.File.ReadAllText(siteJsPath);
+            // Arrange & Act
+            var siteJsContent = File.ReadAllText(_siteJsPath);
 
             // Assert
             Assert.IsTrue(siteJsContent.Contains("getElementById('checkbox')"), "site.js should get checkbox element");
@@ -82,10 +95,8 @@ namespace UnitTests.ThemeToggle
         public void ThemeToggle_JavaScript_Adds_DarkMode_Class()
         {
             // Arrange
-            var siteJsPath = @"C:\Users\Daniel Kirov-Tomilov\Desktop\2025_26_SU\clones\CSDEV-26-06\src\wwwroot\js\site.js";
-
-            // Act
-            var siteJsContent = System.IO.File.ReadAllText(siteJsPath);
+            // Arrange & Act
+            var siteJsContent = File.ReadAllText(_siteJsPath);
 
             // Assert
             Assert.IsTrue(siteJsContent.Contains("classList.add('dark-mode')"),
@@ -99,10 +110,8 @@ namespace UnitTests.ThemeToggle
         public void ThemeToggle_JavaScript_Removes_DarkMode_Class()
         {
             // Arrange
-            var siteJsPath = @"C:\Users\Daniel Kirov-Tomilov\Desktop\2025_26_SU\clones\CSDEV-26-06\src\wwwroot\js\site.js";
-
-            // Act
-            var siteJsContent = System.IO.File.ReadAllText(siteJsPath);
+            // Arrange & Act
+            var siteJsContent = File.ReadAllText(_siteJsPath);
 
             // Assert
             Assert.IsTrue(siteJsContent.Contains("classList.remove('dark-mode')"),
@@ -116,10 +125,8 @@ namespace UnitTests.ThemeToggle
         public void ThemeToggle_JavaScript_Saves_DarkMode_To_LocalStorage()
         {
             // Arrange
-            var siteJsPath = @"C:\Users\Daniel Kirov-Tomilov\Desktop\2025_26_SU\clones\CSDEV-26-06\src\wwwroot\js\site.js";
-
-            // Act
-            var siteJsContent = System.IO.File.ReadAllText(siteJsPath);
+            // Arrange & Act
+            var siteJsContent = File.ReadAllText(_siteJsPath);
 
             // Assert
             Assert.IsTrue(siteJsContent.Contains("localStorage.setItem('theme', 'dark-mode')"),
@@ -133,10 +140,8 @@ namespace UnitTests.ThemeToggle
         public void ThemeToggle_JavaScript_Saves_LightMode_To_LocalStorage()
         {
             // Arrange
-            var siteJsPath = @"C:\Users\Daniel Kirov-Tomilov\Desktop\2025_26_SU\clones\CSDEV-26-06\src\wwwroot\js\site.js";
-
-            // Act
-            var siteJsContent = System.IO.File.ReadAllText(siteJsPath);
+            // Arrange & Act
+            var siteJsContent = File.ReadAllText(_siteJsPath);
 
             // Assert
             Assert.IsTrue(siteJsContent.Contains("localStorage.setItem('theme', 'light-mode')"),
@@ -150,10 +155,8 @@ namespace UnitTests.ThemeToggle
         public void ThemeToggle_JavaScript_Restores_DarkMode_From_LocalStorage()
         {
             // Arrange
-            var siteJsPath = @"C:\Users\Daniel Kirov-Tomilov\Desktop\2025_26_SU\clones\CSDEV-26-06\src\wwwroot\js\site.js";
-
-            // Act
-            var siteJsContent = System.IO.File.ReadAllText(siteJsPath);
+            // Arrange & Act
+            var siteJsContent = File.ReadAllText(_siteJsPath);
 
             // Assert
             Assert.IsTrue(siteJsContent.Contains("var theme = localStorage.getItem('theme')"),
@@ -172,10 +175,8 @@ namespace UnitTests.ThemeToggle
         public void ThemeToggle_JavaScript_Uses_IIFE_Pattern()
         {
             // Arrange
-            var siteJsPath = @"C:\Users\Daniel Kirov-Tomilov\Desktop\2025_26_SU\clones\CSDEV-26-06\src\wwwroot\js\site.js";
-
-            // Act
-            var siteJsContent = System.IO.File.ReadAllText(siteJsPath);
+            // Arrange & Act
+            var siteJsContent = File.ReadAllText(_siteJsPath);
 
             // Assert
             Assert.IsTrue(siteJsContent.Contains("(function ()") || siteJsContent.Contains("(function()"),
@@ -192,10 +193,8 @@ namespace UnitTests.ThemeToggle
         public void ThemeToggle_JavaScript_Handles_Null_Checkbox()
         {
             // Arrange
-            var siteJsPath = @"C:\Users\Daniel Kirov-Tomilov\Desktop\2025_26_SU\clones\CSDEV-26-06\src\wwwroot\js\site.js";
-
-            // Act
-            var siteJsContent = System.IO.File.ReadAllText(siteJsPath);
+            // Arrange & Act
+            var siteJsContent = File.ReadAllText(_siteJsPath);
 
             // Assert
             Assert.IsTrue(siteJsContent.Contains("if (checkbox)"),
@@ -214,10 +213,8 @@ namespace UnitTests.ThemeToggle
         public void ThemeToggle_CSS_DarkMode_Styles_Exist()
         {
             // Arrange
-            var siteCssPath = @"C:\Users\Daniel Kirov-Tomilov\Desktop\2025_26_SU\clones\CSDEV-26-06\src\wwwroot\css\site.css";
-
-            // Act
-            var siteCssContent = System.IO.File.ReadAllText(siteCssPath);
+            // Arrange & Act
+            var siteCssContent = File.ReadAllText(_siteCssPath);
 
             // Assert
             Assert.IsTrue(siteCssContent.Contains("body.dark-mode"),
@@ -231,10 +228,8 @@ namespace UnitTests.ThemeToggle
         public void ThemeToggle_CSS_Toggle_Button_Styles_Exist()
         {
             // Arrange
-            var siteCssPath = @"C:\Users\Daniel Kirov-Tomilov\Desktop\2025_26_SU\clones\CSDEV-26-06\src\wwwroot\css\site.css";
-
-            // Act
-            var siteCssContent = System.IO.File.ReadAllText(siteCssPath);
+            // Arrange & Act
+            var siteCssContent = File.ReadAllText(_siteCssPath);
 
             // Assert
             Assert.IsTrue(siteCssContent.Contains(".theme-switch-wrapper"),
@@ -252,10 +247,8 @@ namespace UnitTests.ThemeToggle
         public void ThemeToggle_CSS_Slider_Has_Round_Style()
         {
             // Arrange
-            var siteCssPath = @"C:\Users\Daniel Kirov-Tomilov\Desktop\2025_26_SU\clones\CSDEV-26-06\src\wwwroot\css\site.css";
-
-            // Act
-            var siteCssContent = System.IO.File.ReadAllText(siteCssPath);
+            // Arrange & Act
+            var siteCssContent = File.ReadAllText(_siteCssPath);
 
             // Assert
             Assert.IsTrue(siteCssContent.Contains(".slider.round"),
@@ -270,10 +263,8 @@ namespace UnitTests.ThemeToggle
         public void ThemeToggle_CSS_Has_Checked_State_Style()
         {
             // Arrange
-            var siteCssPath = @"C:\Users\Daniel Kirov-Tomilov\Desktop\2025_26_SU\clones\CSDEV-26-06\src\wwwroot\css\site.css";
-
-            // Act
-            var siteCssContent = System.IO.File.ReadAllText(siteCssPath);
+            // Arrange & Act
+            var siteCssContent = File.ReadAllText(_siteCssPath);
 
             // Assert
             Assert.IsTrue(siteCssContent.Contains("input:checked + .slider"),
@@ -287,10 +278,8 @@ namespace UnitTests.ThemeToggle
         public void ThemeToggle_CSS_Positioned_Bottom_Right()
         {
             // Arrange
-            var siteCssPath = @"C:\Users\Daniel Kirov-Tomilov\Desktop\2025_26_SU\clones\CSDEV-26-06\src\wwwroot\css\site.css";
-
-            // Act
-            var siteCssContent = System.IO.File.ReadAllText(siteCssPath);
+            // Arrange & Act
+            var siteCssContent = File.ReadAllText(_siteCssPath);
 
             // Assert
             // The theme-switch-wrapper should be positioned absolutely in bottom right
@@ -321,15 +310,10 @@ namespace UnitTests.ThemeToggle
         [Test]
         public void ThemeToggle_Integration_All_Components_Present()
         {
-            // Arrange
-            var layoutPath = @"C:\Users\Daniel Kirov-Tomilov\Desktop\2025_26_SU\clones\CSDEV-26-06\src\Pages\Shared\_Layout.cshtml";
-            var siteJsPath = @"C:\Users\Daniel Kirov-Tomilov\Desktop\2025_26_SU\clones\CSDEV-26-06\src\wwwroot\js\site.js";
-            var siteCssPath = @"C:\Users\Daniel Kirov-Tomilov\Desktop\2025_26_SU\clones\CSDEV-26-06\src\wwwroot\css\site.css";
-
-            // Act
-            var layoutContent = System.IO.File.ReadAllText(layoutPath);
-            var siteJsContent = System.IO.File.ReadAllText(siteJsPath);
-            var siteCssContent = System.IO.File.ReadAllText(siteCssPath);
+            // Arrange & Act
+            var layoutContent = File.ReadAllText(_layoutPath);
+            var siteJsContent = File.ReadAllText(_siteJsPath);
+            var siteCssContent = File.ReadAllText(_siteCssPath);
 
             // Assert - Verify all three components reference 'dark-mode'
             Assert.IsTrue(siteJsContent.Contains("dark-mode"), "JavaScript should handle dark-mode class");
