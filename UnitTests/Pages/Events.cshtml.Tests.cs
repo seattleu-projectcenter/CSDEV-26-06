@@ -1,6 +1,7 @@
 using System;
 using System.IO;
 using System.Linq;
+using System.Reflection;
 using System.Text.Json;
 
 using Microsoft.AspNetCore.Hosting;
@@ -132,6 +133,21 @@ namespace UnitTests.Pages.Events
         }
 
         [Test]
+        public void OnPostAdd_WithExistingEvents_ShouldAppendWithoutOverwriting()
+        {
+            using var root = TempWebRoot.Create();
+            WriteEvents(root, new EventsModel.EventDto { Id = "existing", Matchup = "Existing" });
+            var model = CreateModel(root.Path);
+
+            model.OnPostAdd("New Event", DateTimeOffset.UtcNow.AddHours(1), "Card", "Venue", "Location");
+
+            var saved = ReadEvents(root);
+            Assert.AreEqual(2, saved.Length);
+            Assert.AreEqual("existing", saved[0].Id);
+            Assert.AreEqual("New Event", saved[1].Matchup);
+        }
+
+        [Test]
         public void OnPostAdd_WhenSaveFails_ShouldStillReturnRedirect()
         {
             using var root = TempWebRoot.Create();
@@ -184,12 +200,56 @@ namespace UnitTests.Pages.Events
         }
 
         [Test]
+        public void OnPostUpdate_ShouldOnlyModifySpecifiedEvent()
+        {
+            using var root = TempWebRoot.Create();
+            WriteEvents(root,
+                new EventsModel.EventDto { Id = "first", Matchup = "First" },
+                new EventsModel.EventDto { Id = "second", Matchup = "Second" });
+            var model = CreateModel(root.Path);
+            var newStart = DateTimeOffset.UtcNow.AddDays(2);
+
+            model.OnPostUpdate("second", "Updated Second", newStart, "Card", "Venue", "Location");
+
+            var saved = ReadEvents(root);
+            Assert.AreEqual(2, saved.Length);
+            Assert.AreEqual("First", saved.Single(e => e.Id == "first").Matchup);
+            var updated = saved.Single(e => e.Id == "second");
+            Assert.AreEqual("Updated Second", updated.Matchup);
+            Assert.AreEqual(newStart, updated.StartUtc);
+        }
+
+        [Test]
         public void OnPostUpdate_MissingId_ShouldShortCircuit()
         {
             using var root = TempWebRoot.Create();
             var model = CreateModel(root.Path);
 
             var result = model.OnPostUpdate(string.Empty, "Ignored", DateTimeOffset.UtcNow, null, null, null);
+
+            Assert.IsInstanceOf<RedirectToPageResult>(result);
+            Assert.IsFalse(File.Exists(root.EventsPath));
+        }
+
+        [Test]
+        public void OnPostUpdate_NullId_ShouldShortCircuit()
+        {
+            using var root = TempWebRoot.Create();
+            var model = CreateModel(root.Path);
+
+            var result = model.OnPostUpdate(null, "Ignored", DateTimeOffset.UtcNow, null, null, null);
+
+            Assert.IsInstanceOf<RedirectToPageResult>(result);
+            Assert.IsFalse(File.Exists(root.EventsPath));
+        }
+
+        [Test]
+        public void OnPostUpdate_WhitespaceId_ShouldShortCircuit()
+        {
+            using var root = TempWebRoot.Create();
+            var model = CreateModel(root.Path);
+
+            var result = model.OnPostUpdate("   ", "Ignored", DateTimeOffset.UtcNow, null, null, null);
 
             Assert.IsInstanceOf<RedirectToPageResult>(result);
             Assert.IsFalse(File.Exists(root.EventsPath));
@@ -238,12 +298,52 @@ namespace UnitTests.Pages.Events
         }
 
         [Test]
+        public void OnPostDelete_ShouldOnlyRemoveRequestedId()
+        {
+            using var root = TempWebRoot.Create();
+            WriteEvents(root,
+                new EventsModel.EventDto { Id = "first", Matchup = "First" },
+                new EventsModel.EventDto { Id = "second", Matchup = "Second" });
+            var model = CreateModel(root.Path);
+
+            model.OnPostDelete("first");
+
+            var saved = ReadEvents(root);
+            Assert.AreEqual(1, saved.Length);
+            Assert.AreEqual("second", saved.Single().Id);
+        }
+
+        [Test]
         public void OnPostDelete_MissingId_ShouldShortCircuit()
         {
             using var root = TempWebRoot.Create();
             var model = CreateModel(root.Path);
 
             var result = model.OnPostDelete(null);
+
+            Assert.IsInstanceOf<RedirectToPageResult>(result);
+            Assert.IsFalse(File.Exists(root.EventsPath));
+        }
+
+        [Test]
+        public void OnPostDelete_EmptyId_ShouldShortCircuit()
+        {
+            using var root = TempWebRoot.Create();
+            var model = CreateModel(root.Path);
+
+            var result = model.OnPostDelete(string.Empty);
+
+            Assert.IsInstanceOf<RedirectToPageResult>(result);
+            Assert.IsFalse(File.Exists(root.EventsPath));
+        }
+
+        [Test]
+        public void OnPostDelete_WhitespaceId_ShouldShortCircuit()
+        {
+            using var root = TempWebRoot.Create();
+            var model = CreateModel(root.Path);
+
+            var result = model.OnPostDelete("   ");
 
             Assert.IsInstanceOf<RedirectToPageResult>(result);
             Assert.IsFalse(File.Exists(root.EventsPath));
@@ -326,6 +426,23 @@ namespace UnitTests.Pages.Events
             Assert.AreEqual(2, saved.Length);
             Assert.AreEqual("Event 1", saved[0].Matchup);
             Assert.AreEqual("Event 2", saved[1].Matchup);
+        }
+
+        [Test]
+        public void Save_WhenDirectoryMissing_ShouldCreateDirectoryAndPersistData()
+        {
+            using var root = TempWebRoot.Create();
+            var model = CreateModel(root.Path);
+            var saveMethod = typeof(EventsModel).GetMethod("Save", BindingFlags.Instance | BindingFlags.NonPublic);
+            Assert.NotNull(saveMethod, "Expected to find private Save method via reflection.");
+
+            var dto = new[] { new EventsModel.EventDto { Matchup = "Direct Save" } };
+
+            saveMethod!.Invoke(model, new object[] { dto });
+
+            var saved = ReadEvents(root);
+            Assert.AreEqual(1, saved.Length);
+            Assert.AreEqual("Direct Save", saved.Single().Matchup);
         }
 
         [Test]

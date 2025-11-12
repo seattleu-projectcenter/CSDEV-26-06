@@ -26,5 +26,25 @@ namespace UnitTests.Models
             Assert.IsNotNull(comment1.Id);
             Assert.AreNotEqual(comment1.Id, comment2.Id);
         }
+
+        [Test]
+        public void Comment_SetAndGet_ShouldPersistValue()
+        {
+            var comment = new CommentModel();
+
+            comment.Comment = "Fight of the night!";
+
+            Assert.AreEqual("Fight of the night!", comment.Comment);
+        }
+
+        [Test]
+        public void Comment_Id_Setter_ShouldPersistValue()
+        {
+            var comment = new CommentModel();
+
+            comment.Id = "custom-id";
+
+            Assert.AreEqual("custom-id", comment.Id);
+        }
     }
 }

@@ -80,7 +80,7 @@ namespace ContosoCrafts.WebSite.Services
         /// Save to the data store
         /// </summary>
         /// <param name="data"></param>
-        public ProductModel UpdateData(ProductModel data)
+        public virtual ProductModel UpdateData(ProductModel data)
         {
             if (data == null || string.IsNullOrWhiteSpace(data.Id))
             {
@@ -175,7 +175,7 @@ namespace ContosoCrafts.WebSite.Services
         /// After create the user can update to set values
         /// </summary>
         /// <returns></returns>
-        public ProductModel CreateData()
+        public virtual ProductModel CreateData()
         {
             var data = new ProductModel()
             {
